@@ -12,21 +12,23 @@ author: YourTwitterUsername
 <Step>Install dependencies</Step>
 
 ```bash
-npm install framer-motion lucide-react
+npm i motion clsx tailwind-merge
 ```
 
-<Step>Update `tailwind.config.js`</Step>
+<Step>Add util file</Step>
 
-Add the following to your tailwind.config.js file.
+lib/utils.ts
 
 ```json
-module.exports = {
-  theme: {
-    extend: {
-    }
-  }
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
+
 ```
+
 
 <Step>Run the following command</Step>
 
