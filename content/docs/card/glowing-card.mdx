@@ -1,0 +1,54 @@
+---
+title: Glowing Card
+description: The card glows in gradient colours when hovered
+labels: ["requires interaction", "hover"]
+author: AashishKatila
+---
+
+<ComponentPreview name="card-glowing-card--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+Add the following to your tailwind.config.js file.
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      boxShadow: {
+        glow: "0 0 20px rgba(255, 204, 112, 0.7), 0 0 40px rgba(200, 80, 192, 0.5), 0 0 60px rgba(65, 88, 208, 0.3)",
+        glow2:
+          "0 0 20px rgba(50, 255, 50, 0.7), 0 0 40px rgba(20, 200, 20, 0.5), 0 0 60px rgba(5, 150, 5, 0.3)",
+      },
+      filter: {
+        "blur-20": "blur(20px)",
+        "blur-25": "blur(25px)",
+      },
+      brightness: {
+        150: "1.5",
+      },
+    },
+  },
+};
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `glowing-card.tsx` inside the `components/mage-ui/card` directory.
+
+```bash
+mkdir -p components/mage-ui/card && touch components/mage-ui/card/glowing-card.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/card/glowing-card.tsx
+
+```
+
+</Steps>

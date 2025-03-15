@@ -1,0 +1,46 @@
+---
+title: Swap Text
+description: A component that swaps text on click or hover.
+labels: ["requires interaction", "hover", "click"]
+author: harimanok_
+---
+
+<ComponentPreview name="text-swap-text--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+        colors: {
+        foreground: "hsl(var(--foreground))",
+     },
+       transitionTimingFunction: {
+        slow: "cubic-bezier(.405, 0, .025, 1)",
+        "minor-spring": "cubic-bezier(0.18,0.89,0.82,1.04)",
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `swap-text.tsx` inside the `components/mage-ui/text` directory.
+
+```bash
+touch components/mage-ui/text/swap-text.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/text/swap-text.tsx
+
+```
+
+</Steps>
+

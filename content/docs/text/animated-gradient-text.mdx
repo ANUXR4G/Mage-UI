@@ -1,0 +1,43 @@
+---
+title: Animated Gradient Text
+description: A component to animate the text using gradient
+author: harimanok_
+---
+
+<ComponentPreview name="text-animated-gradient-text--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+       keyframes: {
+         "bg-position": {
+         "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+         }
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `animated-gradient-text.tsx` inside the `components/mage-ui/text` directory.
+
+```bash
+mkdir -p components/mage-ui/text && touch components/mage-ui/text/animated-gradient-text.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/text/animated-gradient-text.tsx
+
+```
+
+</Steps>

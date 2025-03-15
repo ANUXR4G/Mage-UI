@@ -1,0 +1,53 @@
+---
+title: Blurry blob
+description: Animated blurry blob background
+author: ll4xmii
+---
+
+<ComponentPreview name="background-blurry-blob--docs" />
+
+## Installation
+
+<Steps>
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+      keyframes: {
+          "pop-blob": {
+          "0%": { transform: "scale(1)" },
+          "33%": { transform: "scale(1.2)" },
+          "66%": { transform: "scale(0.8)" },
+          "100%": { transform: "scale(1)" },
+        },
+        colors: {
+          filter: {
+         "blur-20": "blur(20px)",
+         "blur-25": "blur(25px)",
+          },
+        },
+      animation: {
+        "pop-blob": "pop-blob 5s infinite",
+      }
+    },
+   },
+},
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `blurry-blob.tsx` inside the `components/mage-ui/background` directory.
+
+```bash
+mkdir -p components/mage-ui/background && touch components/mage-ui/background/blurry-blob.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/background/blurry-blob.tsx
+
+```
+
+</Steps>

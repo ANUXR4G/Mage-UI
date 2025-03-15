@@ -1,0 +1,48 @@
+---
+title: Reminder Scheduler
+description: a simple card to set up recurring reminders along with frequency and repetition.
+author: m_jinprince
+labels: ["requires interaction", "toggle switch"]
+---
+
+<ComponentPreview name="card-reminder-scheduler--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+
+Add the following to your tailwind.config.js file.
+
+```js
+theme: {
+    extend: {
+        colors: {
+        foreground: "hsl(var(--foreground))",
+     },
+       transitionTimingFunction: {
+        slow: "cubic-bezier(.405, 0, .025, 1)",
+        "minor-spring": "cubic-bezier(0.18,0.89,0.82,1.04)",
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `reminder-scheduler.tsx` inside the `components/mage-ui/card` directory.
+
+```bash
+mkdir -p components/mage-ui/card && touch components/mage-ui/card/reminder-scheduler.tsx
+```
+
+<Step>Paste the code</Step>{" "}
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/card/reminder-scheduler.tsx
+
+```
+
+</Steps>
