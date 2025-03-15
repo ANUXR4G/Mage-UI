@@ -1,0 +1,48 @@
+---
+title: Hover Effect
+description: Hover over the cards and the effect slides to the currently hovered card.
+author: YourTwitterUsername
+---
+
+<ComponentPreview name="card-hover-effect--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm i motion clsx tailwind-merge
+```
+
+<Step>Add util file</Step>
+
+lib/utils.ts
+
+```json
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `hover-effect.tsx` inside the `components/mage-ui/card` directory.
+
+```bash
+mkdir -p components/mage-ui/card && touch components/mage-ui/card/hover-effect.tsx
+```
+
+<Step>Paste the code</Step>{" "}
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/card/hover-effect.tsx
+
+```
+
+</Steps>
