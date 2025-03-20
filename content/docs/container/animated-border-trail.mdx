@@ -1,0 +1,60 @@
+---
+title: Animated Border Trail
+description: A container with animated border trail, this can be used for buttons as well as cards.
+author: harimanok_
+---
+
+<ComponentPreview name="container-animated-border-trail--docs" />
+
+## Installation
+
+<Steps>
+<Step>Add this CSS for `angle` property</Step>
+
+```css
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+```
+
+<Step>Update `tailwind.config.js`</Step>
+
+Add the following to your tailwind.config.js file.
+
+```json
+module.exports = {
+  theme: {
+    extend: {
+      keyframes: {
+        "trail": {
+          "0%": { "--angle": "0deg" },
+          "100%": { "--angle": "360deg" },
+        },
+      },
+      animation: {
+        "trail": "trail var(--duration) linear infinite",
+      },
+    }
+  }
+}
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `animated-border-trail.tsx` inside the `components/mage-ui/container` directory.
+
+```bash
+mkdir -p components/mage-ui/container && touch components/mage-ui/container/animated-border-trail.tsx
+```
+
+<Step>Paste the code</Step>{" "}
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/container/animated-border-trail.tsx
+
+```
+
+</Steps>

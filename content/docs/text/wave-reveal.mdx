@@ -1,0 +1,53 @@
+---
+title: Wave Reveal
+description: Reveal letter or word one by one with a wave effect & optional blur effect.
+---
+
+<ComponentPreview name="text-wave-reveal--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+        transitionTimingFunction: {
+        "minor-spring": "cubic-bezier(0.18,0.89,0.82,1.04)",
+      },
+      keyframes:{
+          "reveal-up": {
+          "0%": { opacity: "0", transform: "translateY(80%)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "reveal-down": {
+          "0%": { opacity: "0", transform: "translateY(-80%)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+          "content-blur": {
+          "0%": { filter: "blur(0.3rem)" },
+          "100%": { filter: "blur(0)" },
+        },
+      }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `wave-reveal.tsx` inside the `components/mage-ui/text` directory.
+
+```bash
+touch components/mage-ui/text/wave-reveal.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/text/wave-reveal.tsx
+
+```
+
+</Steps>

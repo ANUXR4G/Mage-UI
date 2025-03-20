@@ -1,0 +1,48 @@
+---
+title: Animated Tooltip
+description: A cool tooltip that reveals on hover, follows mouse pointer
+author: YourTwitterUsername
+---
+
+<ComponentPreview name="icon-animated-tooltip--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm i motion clsx tailwind-merge
+```
+
+<Step>Add util file</Step>
+
+lib/utils.ts
+
+```json
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `animated-tooltip.tsx` inside the `components/mage-ui/icon` directory.
+
+```bash
+mkdir -p components/mage-ui/icon && touch components/mage-ui/icon/animated-tooltip.tsx
+```
+
+<Step>Paste the code</Step>{" "}
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/icon/animated-tooltip.tsx
+
+```
+
+</Steps>

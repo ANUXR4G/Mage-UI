@@ -1,0 +1,44 @@
+---
+title: Moving Gradient
+description: Animated moving gradient background
+labels: ["requires config"]
+author: harimanok_
+---
+
+<ComponentPreview name="background-moving-gradient--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+     keyframes: {
+          "bg-position": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `moving-gradient.tsx` inside the `components/mage-ui/background` directory.
+
+```bash
+mkdir -p components/mage-ui/background && touch components/mage-ui/background/moving-gradient.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/background/moving-gradient.tsx
+
+```
+
+</Steps>

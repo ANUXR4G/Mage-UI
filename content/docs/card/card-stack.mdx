@@ -1,0 +1,49 @@
+---
+title: Card Stack
+description: Cards stack on top of each other after some interval. Perfect for showing testimonials.
+author: YourTwitterUsername
+---
+
+<ComponentPreview name="card-card-stack--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm i motion clsx tailwind-merge
+```
+
+<Step>Add util file</Step>
+
+lib/utils.ts
+
+```json
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+```
+
+
+<Step>Run the following command</Step>
+
+It will create a new file `card-stack.tsx` inside the `components/mage-ui/card` directory.
+
+```bash
+mkdir -p components/mage-ui/card && touch components/mage-ui/card/card-stack.tsx
+```
+
+<Step>Paste the code</Step>{" "}
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/card/card-stack.tsx
+
+```
+
+</Steps>

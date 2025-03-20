@@ -1,0 +1,63 @@
+name: Deploy Preview
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy-preview:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    environment: preview-deployment
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+          STORYBOOK_NEXT_PUBLIC_APP_URL: ${{ vars.STORYBOOK_NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_STORYBOOK_URL: ${{ vars.NEXT_PUBLIC_STORYBOOK_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
+        run: yarn build
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=mage-ui --branch=dev-${{ github.event.pull_request.head.ref }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment Deployment URL
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 Preview deployed to: ${{ steps.deploy.outputs.deployment-url }}`
+            })

@@ -1,0 +1,45 @@
+---
+title: Shape Shifter
+description: A hero section with a shape-shifting component in the center
+labels: ["requires interaction", "hover"]
+author: harimanok_
+---
+
+<ComponentPreview name="hero-shape-shifter--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+     keyframes: {
+        "shape-shift": {
+          "0%": {
+            width: "40px",
+            height: "20px",
+          },
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `shape-shifter.tsx` inside the `components/mage-ui/hero` directory.
+
+```bash
+mkdir -p components/mage-ui/hero && touch components/mage-ui/hero/shape-shifter.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/hero/shape-shifter.tsx
+
+```
+
+</Steps>

@@ -1,0 +1,42 @@
+---
+title: Tilted Cover
+description: A titled image component with a background element
+labels: ["requires interaction", "hover"]
+author: harimanok_
+---
+
+<ComponentPreview name="image-tilted-cover--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+       transitionTimingFunction: {
+        slow: "cubic-bezier(.405, 0, .025, 1)",
+        "minor-spring": "cubic-bezier(0.18,0.89,0.82,1.04)",
+     }
+    },
+  },
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file called `tilted-cover.tsx` inside the `components/mage-ui/image` directory.
+
+```bash
+mkdir -p components/mage-ui/image && touch components/mage-ui/image/tilted-cover.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/image/tilted-cover.tsx
+
+```
+
+</Steps>

@@ -1,0 +1,44 @@
+---
+title: Scrolling Testimonials
+description: A dynamic and visually engaging scrolling testimonials section
+author: morphhyy
+---
+
+<ComponentPreview name="container-scrolling-testimonials--docs" />
+
+## Installation
+
+<Steps>
+
+<Step>Update `tailwind.config.js`</Step>
+```js
+theme: {
+    extend: {
+     colors: {
+        foreground: "hsl(var(--foreground))",
+     }
+    },
+  },
+```
+
+<Step>Install dependencies</Step>
+
+This uses [Marquee](/docs/container/marquee) for the text. Install it by following the instructions [here](/docs/container/marquee#installation).
+
+<Step>Run the following command</Step>
+
+It will create a new file called `scrolling-testimonials.tsx` inside the `components/mage-ui/container` directory.
+
+```bash
+mkdir -p components/mage-ui/container && touch components/mage-ui/container/scrolling-testimonials.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/container/scrolling-testimonials.tsx
+
+```
+
+</Steps>
