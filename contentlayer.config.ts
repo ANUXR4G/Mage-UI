@@ -47,7 +47,7 @@ const computedFields: ComputedFields = {
         dateModified: doc.date,
         description: doc.summary || doc.description,
         image: doc.image,
-        url: `https://mage-ui.design/${doc._raw.flattenedPath}`,
+        url: `https://mageui.live/${doc._raw.flattenedPath}`,
         author: {
           "@type": "Person",
           name: doc.author,
