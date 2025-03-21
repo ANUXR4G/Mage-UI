@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Mage-UI",
-  url: "https://mage-ui.design",
-  ogImage: "https://mage-ui.design/og.png",
+  url: "https://mageui.live",
+  ogImage: "https://mageui.live/og.png",
   description:
     "Hand-crafted animated components that you can copy and paste into your apps. Free & Open Source.",
   links: {
