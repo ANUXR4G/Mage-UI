@@ -700,6 +700,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: 'https://mageui.live/docs/widget/shifting-countdown',
+      lastModified: new Date('2025-03-20T03:16:56.833Z'),
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    },
+    {
       url: 'https://mageui.live/docs/widget/shopping-list',
       lastModified: new Date('2025-03-20T03:16:56.833Z'),
       changeFrequency: 'weekly',
