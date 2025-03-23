@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 import { useInView } from "framer-motion";
-
+import NeonCursor from "./_landing/NeoEffectPage"
 import SectionOne from "@/app/_landing/section-one";
 import { cn } from "@/lib/utils";
 
@@ -43,6 +43,7 @@ function LazySection({
           />
         }
       >
+        <NeonCursor />
         <Component />
       </Suspense>
     </div>

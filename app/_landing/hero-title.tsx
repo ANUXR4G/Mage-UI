@@ -16,7 +16,7 @@ export default function HeroTitle() {
         <WaveReveal
           text="MAGE-UI"
           className={cn(
-            "select-none px-0 text-7xl uppercase text-blue-700 transition-opacity delay-1000 dark:text-blue-500 md:px-0 md:text-8xl",
+            "select-none px-0 text-7xl uppercase text-amber-700 transition-opacity delay-1000 dark:text-amber-500 md:px-0 md:text-8xl",
             titleFont.className,
           )}
           delay={0}

@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
+
 import HeroTitle from "./hero-title";
 
 function Pill({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -17,6 +18,7 @@ function Pill({ children, className }: { children: React.ReactNode; className?: 
         className,
       )}
     >
+
       {children}
     </div>
   );
@@ -24,17 +26,18 @@ function Pill({ children, className }: { children: React.ReactNode; className?: 
 
 export default function Hero() {
   return (
-    <div className="relative overflow-visible pt-16">
+    <div className="relative  overflow-visible pt-16">
+
       <div
         className="absolute inset-0 hidden aspect-square min-h-full w-[1200%] opacity-25 duration-1000 ease-in-out animate-in fade-in-0 dark:opacity-75 dark:mix-blend-soft-light dark:brightness-150 md:block md:w-[120%]"
         style={{
-          backgroundImage: `radial-gradient(at 88% 11%, hsla(166,69%,67%,1) 0px, transparent 50%),
-          radial-gradient(at 56% 93%, hsla(295,72%,68%,1) 0px, transparent 50%),
-          radial-gradient(at 87% 28%, hsla(210,89%,62%,1) 0px, transparent 50%),
-          radial-gradient(at 75% 83%, hsla(332,84%,75%,1) 0px, transparent 50%),
-          radial-gradient(at 33% 39%, hsla(124,65%,76%,1) 0px, transparent 50%),
-          radial-gradient(at 62% 69%, hsla(133,75%,79%,1) 0px, transparent 50%),
-          radial-gradient(at 66% 84%, hsla(89,66%,79%,1) 0px, transparent 50%)`,
+          backgroundImage: `radial-gradient(at 88% 11%, hsla(330,90%,65%,1) 0px, transparent 50%),
+radial-gradient(at 56% 93%, hsla(220,80%,30%,1) 0px, transparent 50%),
+radial-gradient(at 87% 28%, hsla(330,90%,65%,1) 0px, transparent 50%),
+radial-gradient(at 75% 83%, hsla(310,85%,70%,1) 0px, transparent 50%),
+radial-gradient(at 33% 39%, hsla(220,80%,30%,1) 0px, transparent 50%),
+radial-gradient(at 62% 69%, hsla(275,88%,68%,1) 0px, transparent 50%),
+radial-gradient(at 66% 84%, hsla(300,90%,65%,1) 0px, transparent 50%)`,
         }}
       />
       <div className="container relative overflow-hidden py-16 md:py-48">
