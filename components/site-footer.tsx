@@ -23,7 +23,7 @@ export function SiteFooter() {
           </div>
           <p className="text-muted-foreground">by</p>
           <div className="flex gap-1">
-            <span>ANUXR4G</span>
+            <span>ANUXR4G & JUST_ARVINDRA</span>
           </div>
         </div>
       </div>
