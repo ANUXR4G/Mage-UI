@@ -64,7 +64,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <Pill className="left-12 top-20 rotate-3">100+ components</Pill>
+        <Pill className="left-12 top-20 rotate-3">200+ components</Pill>
         <Pill className="right-12 top-20 -translate-y-1/2 -rotate-6">Animations</Pill>
         <Pill className="bottom-12 left-12 -rotate-6">Ready To Use</Pill>
         <Pill className="right-8 top-1/2 -translate-y-1/2">250+ hours of research</Pill>
