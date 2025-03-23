@@ -84,6 +84,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <html lang="en" suppressHydrationWarning>
         <head>
           <GoogleAdsense pId="ca-pub-8579465290654846" />
+          <link rel="icon" href="/favicon.ico" sizes="any" />
         </head>
         <CSPostHogProvider>
           <body className={cn("min-h-screen bg-background font-sans antialiased")}>
