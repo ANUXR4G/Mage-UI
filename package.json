@@ -59,6 +59,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
+    "react-use-measure": "^2.1.7",
     "react-wrap-balancer": "^1.1.1",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.13.2",

@@ -13381,6 +13381,7 @@ __metadata:
     react-docgen: "npm:^7.0.3"
     react-dom: "npm:^18"
     react-icons: "npm:^5.5.0"
+    react-use-measure: "npm:^2.1.7"
     react-wrap-balancer: "npm:^1.1.1"
     rehype-autolink-headings: "npm:^7.1.0"
     rehype-pretty-code: "npm:^0.13.2"
@@ -16641,6 +16642,19 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/6d66f3bdb65e1ec79089f80314da97c9a005087a04ee034255a5de129a4c0d9fd0bf99fa7bf642781ac2dc745ca687aae3de082bd8afdd0d117bc953241e15ad
+  languageName: node
+  linkType: hard
+
+"react-use-measure@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "react-use-measure@npm:2.1.7"
+  peerDependencies:
+    react: ">=16.13"
+    react-dom: ">=16.13"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/ff24130e6f95e853feb6892fb74af08dbc5aae3574b701169e3bc3adb392c3162f51a58ddfe39bb7337db13ae609bbec0bb51a9de8b5fae5420f9d17e1f8b542
   languageName: node
   linkType: hard
 
