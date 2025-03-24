@@ -1,7 +1,6 @@
 ---
 title: Bar Loader
 description: A bar loader is a visual indicator that represents loading progress using a horizontal bar animation.
-author: YourTwitterUsername
 ---
 
 <ComponentPreview name="preloader-bar-loader--docs" />
@@ -13,19 +12,6 @@ author: YourTwitterUsername
 
 ```bash
 npm install framer-motion lucide-react
-```
-
-<Step>Update `tailwind.config.js`</Step>
-
-Add the following to your tailwind.config.js file.
-
-```json
-module.exports = {
-  theme: {
-    extend: {
-    }
-  }
-}
 ```
 
 <Step>Run the following command</Step>
@@ -40,7 +26,55 @@ mkdir -p components/mage-ui/preloader && touch components/mage-ui/preloader/bar-
 
 Open the newly created file and paste the following code:
 
-```jsx file=<rootDir>/mage-ui/preloader/bar-loader.tsx
+```jsx 
+"use client";
+import { Variants, motion } from "framer-motion";
+
+const Bar = () => {
+  return (
+    <div className="grid place-content-center bg-amber-700 h-screen w-[90vw]">
+      <BarLoader />
+    </div>
+  );
+};
+
+const variants = {
+  initial: {
+    scaleY: 0.5,
+    opacity: 0,
+  },
+  animate: {
+    scaleY: 1,
+    opacity: 1,
+    transition: {
+      repeat: Infinity,
+      repeatType: "mirror",
+      duration: 1,
+      ease: "circIn",
+    },
+  },
+} as Variants;
+
+const BarLoader = () => {
+  return (
+    <motion.div
+      transition={{
+        staggerChildren: 0.25,
+      }}
+      initial="initial"
+      animate="animate"
+      className="flex gap-1"
+    >
+      <motion.div variants={variants} className="h-12 w-2 bg-white" />
+      <motion.div variants={variants} className="h-12 w-2 bg-white" />
+      <motion.div variants={variants} className="h-12 w-2 bg-white" />
+      <motion.div variants={variants} className="h-12 w-2 bg-white" />
+      <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    </motion.div>
+  );
+};
+
+export default Bar;
 
 ```
 </Steps>
