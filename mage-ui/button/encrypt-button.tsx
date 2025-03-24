@@ -1,3 +1,4 @@
+"use client"
 import { useRef, useState } from "react";
 // Alternative import approach for react-icons
 import * as FiIcons from "react-icons/fi";
