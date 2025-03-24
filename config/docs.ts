@@ -98,6 +98,10 @@ const sidebarNav: SidebarNavItem[] = [
     items: createLinks("layout"),
   },
   {
+    title: "Links",
+    items: createLinks("links"),
+  },
+  {
     title: "List",
     items: createLinks("list"),
   },
