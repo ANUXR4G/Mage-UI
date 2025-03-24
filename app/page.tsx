@@ -43,7 +43,9 @@ function LazySection({
           />
         }
       >
-        <NeonCursor />
+        <div className="hidden lg:block">
+          <NeonCursor />
+        </div>
         <Component />
       </Suspense>
     </div>

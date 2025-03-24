@@ -89,11 +89,11 @@ export default function Hero() {
           <filter id="noise">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency=".8"
-              numOctaves="4"
+              baseFrequency="800"
+              numOctaves="400"
               stitchTiles="stitch"
             ></feTurbulence>
-            <feColorMatrix type="saturate" values="0"></feColorMatrix>
+            <feColorMatrix type="saturate" values="10"></feColorMatrix>
           </filter>
           <rect width="100%" height="100%" filter="url(#noise)"></rect>
         </svg>

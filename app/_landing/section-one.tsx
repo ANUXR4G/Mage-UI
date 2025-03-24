@@ -19,7 +19,7 @@ export default function SectionOne() {
     <div className="bg-transparent duration-1000 ease-in-out animate-in fade-in-0 slide-in-from-bottom-16">
       <div className="flex flex-col items-center justify-center gap-1 py-12 text-foreground">
         <h4 className="text-4xl font-medium md:text-5xl lg:text-7xl">
-          <AnimatedGradientText className="bg-gradient-to-br from-foreground/50 via-foreground/60 to-foreground/80 sm">
+          <AnimatedGradientText className="bg-gradient-to-br text-center from-foreground/50 via-foreground/60 to-foreground/80 s">
             Checkout the demo below
           </AnimatedGradientText>
         </h4>
