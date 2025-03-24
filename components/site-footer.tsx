@@ -22,6 +22,7 @@ export function SiteFooter() {
             <span>age-UI</span>
           </div>
           <p className="text-muted-foreground">by</p>
+          <br />
           <div className="flex gap-1">
             <span>ANUXR4G & JUST_ARVINDRA</span>
           </div>
