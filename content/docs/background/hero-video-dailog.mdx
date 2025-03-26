@@ -1,0 +1,57 @@
+---
+title: Hero Video Dailog
+description: A hero video dialog component.
+---
+
+<ComponentPreview name="background-hero-video-dailog--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm install framer-motion lucide-react
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `hero-video-dailog.tsx` inside the `components/mage-ui/background` directory.
+
+```bash 
+mkdir -p components/mage-ui/background && touch components/mage-ui/background/hero-video-dailog.tsx
+```
+
+<Step>Paste the code</Step> 
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/background/hero-video-dailog.tsx
+
+```
+</Steps>
+
+# Props
+
+| Prop          | Type    | Default           | Description                     |
+|--------------|--------|------------------|---------------------------------|
+| `animationStyle` | `string` | `"from-center"`   | Animation style for the dialog |
+| `videoSrc`      | `string` | `-`              | URL of the video to be played  |
+| `thumbnailSrc`  | `string` | `-`              | URL of the thumbnail image     |
+| `thumbnailAlt`  | `string` | `"Video thumbnail"` | Alt text for the thumbnail image |
+
+# Animation Styles
+
+The `animationStyle` prop accepts the following values:
+
+- `"from-bottom"`: Dialog enters from the bottom and exits to the bottom  
+- `"from-center"`: Dialog scales up from the center and scales down to the center  
+- `"from-top"`: Dialog enters from the top and exits to the top  
+- `"from-left"`: Dialog enters from the left and exits to the left  
+- `"from-right"`: Dialog enters from the right and exits to the right  
+- `"fade"`: Dialog fades in and out  
+- `"top-in-bottom-out"`: Dialog enters from the top and exits to the bottom  
+- `"left-in-right-out"`: Dialog enters from the left and exits to the right  
+
+
+
