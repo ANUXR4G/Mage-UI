@@ -147,12 +147,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: 'https://mageui.live/docs/button/animated-follow-button',
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 1,
-    },
-    {
       url: 'https://mageui.live/docs/button/duolingo',
       lastModified: new Date(),
       changeFrequency: 'yearly',
