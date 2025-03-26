@@ -159,5 +159,5 @@ const texts = [
 ];
 
 export function MorphingTextDemo() {
-  return <MorphingText texts={texts} />;
+  return <MorphingText texts={texts} className="text-black dark:text-white" />;
 }
