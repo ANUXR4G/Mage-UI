@@ -1,0 +1,45 @@
+---
+title: Circular Progress
+description: Animated Circular Progress Bar is a component that displays a circular gauge with a percentage value.
+---
+
+<ComponentPreview name="preloader-circular-progress--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm install framer-motion lucide-react
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `circular-progress.tsx` inside the `components/mage-ui/preloader` directory.
+
+```bash 
+mkdir -p components/mage-ui/preloader && touch components/mage-ui/preloader/circular-progress.tsx
+```
+
+<Step>Paste the code</Step> 
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/preloader/circular-progress.tsx
+
+```
+</Steps>
+
+# Props
+
+| Prop                 | Type    | Default | Description                                 |
+|----------------------|--------|---------|---------------------------------------------|
+| `className`         | `string` | `-`     | The class name to be applied to the component |
+| `max`              | `number` | `100`   | The maximum value of the gauge              |
+| `min`              | `number` | `0`     | The minimum value of the gauge              |
+| `value`            | `number` | `0`     | The current value of the gauge              |
+| `gaugePrimaryColor`   | `string` | `-`     | The primary color of the gauge              |
+| `gaugeSecondaryColor` | `string` | `-`     | The secondary color of the gauge            |
+
+
