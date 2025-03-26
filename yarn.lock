@@ -8400,6 +8400,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cobe@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "cobe@npm:0.6.3"
+  dependencies:
+    phenomenon: "npm:^1.6.0"
+  checksum: 10c0/ffb647d5fe3706534b896cb48594dcaae9dfbd97d35a408f084f4b8ad11d1cbb3583977371670d05d518e67e38ef88fb24c843d191fd49c03e576a4a9d81cf63
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -13363,6 +13372,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
     cmdk: "npm:^1.0.0"
+    cobe: "npm:^0.6.3"
     commander: "npm:^12.1.0"
     concurrently: "npm:^8.2.2"
     contentlayer: "npm:^0.3.4"
@@ -15820,6 +15830,13 @@ __metadata:
     estree-walker: "npm:^3.0.0"
     is-reference: "npm:^3.0.0"
   checksum: 10c0/fb5ce7cd810c49254cdf1cd3892811e6dd1a1dfbdf5f10a0a33fb7141baac36443c4cad4f0e2b30abd4eac613f6ab845c2bc1b7ce66ae9694c7321e6ada5bd96
+  languageName: node
+  linkType: hard
+
+"phenomenon@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "phenomenon@npm:1.6.0"
+  checksum: 10c0/32216a8861e69ab1d96c8fa96217769073f446173f3135fbe369ea61f0959c453347004b5aefb22ba18f725273e7c57ce2d2a29c4db6ac431a2839b7bacf9778
   languageName: node
   linkType: hard
 
