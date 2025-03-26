@@ -84,6 +84,7 @@ export default function ParallaxScrollPage() {
           </h1>
         </div>
 
+
         <ParallaxCard />
 
         <div className="h-screen flex items-center justify-center bg-gray-100">
@@ -92,6 +93,6 @@ export default function ParallaxScrollPage() {
           </p>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
