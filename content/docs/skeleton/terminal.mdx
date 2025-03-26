@@ -1,0 +1,64 @@
+---
+title: Terminal
+description: An implementation of the MacOS terminal. Useful for showcasing a command line interface.
+author: YourTwitterUsername
+---
+
+<ComponentPreview name="skeleton-terminal--docs" />
+
+## Installation
+
+<Steps>
+<Step>Install dependencies</Step>
+
+```bash
+npm install framer-motion lucide-react
+```
+
+<Step>Run the following command</Step>
+
+It will create a new file `terminal.tsx` inside the `components/mage-ui/skeleton` directory.
+
+```bash 
+mkdir -p components/mage-ui/skeleton && touch components/mage-ui/skeleton/terminal.tsx
+```
+
+<Step>Paste the code</Step> 
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/mage-ui/skeleton/terminal.tsx
+
+```
+</Steps>
+
+
+# Props
+
+## Terminal
+
+| Prop       | Type       | Default | Description                         |
+|------------|-----------|---------|-------------------------------------|
+| `children` | `ReactNode` | -       | Content to be typed out in the terminal. |
+| `className` | `string`   | -       | Custom CSS class for styling.      |
+
+## AnimatedSpan
+
+| Prop       | Type       | Default | Description                                       |
+|------------|-----------|---------|---------------------------------------------------|
+| `children` | `ReactNode` | -       | Content to be animated.                          |
+| `delay`    | `number`   | 0       | Delay in milliseconds before the animation starts. |
+| `className` | `string`   | -       | Custom CSS class for styling.                    |
+
+## TypingAnimation
+
+| Prop       | Type               | Default | Description                                       |
+|------------|--------------------|---------|---------------------------------------------------|
+| `children` | `ReactNode`         | -       | Content to be animated.                          |
+| `delay`    | `number`            | 0       | Delay in milliseconds before the animation starts. |
+| `className` | `string`           | -       | Custom CSS class for styling.                    |
+| `duration`  | `number`           | 100     | Duration in milliseconds for each character typed. |
+| `as`       | `React.ElementType` | `"span"` | The component type to render.                   |
+
+
+
