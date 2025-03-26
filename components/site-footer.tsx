@@ -18,7 +18,7 @@ export function SiteFooter() {
       <div className="group mx-auto mt-16 w-fit items-center text-center">
         <div className="flex gap-1 flex-wrap justify-center">
           <div className="flex gap-1">
-            <Icons.logo className="h-6 w-6 origin-[top_center] animate-[swing] transition-all duration-1000 ease-in-out direction-alternate repeat-infinite" />
+            <Icons.logo className="h-8 w-8 origin-[top_center] animate-[swing] transition-all duration-1000 ease-in-out direction-alternate repeat-infinite" />
             <span>age-UI</span>
           </div>
           <p className="text-muted-foreground">by</p>

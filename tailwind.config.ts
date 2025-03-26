@@ -114,7 +114,7 @@ const config = {
           "100%": { width: "80px", height: "80px" },
         },
         swing: {
-          "0%": { transform: "rotate(0deg)" },
+          "0%": { transform: "rotate(30deg)" },
           "100%": { transform: "rotate(-30deg)" },
         },
         "content-blur": {
