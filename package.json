@@ -2,7 +2,7 @@
   "name": "mage-ui",
   "version": "0.1.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"next dev\" \"yarn storybook\"",
     "build": "yarn storybook:build && next build",
