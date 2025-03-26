@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
 // Styles for the neon cursor
@@ -33,181 +33,184 @@ canvas {
 }
 `;
 
+// Define interfaces and classes at the top level to avoid recreation
+interface SineWaveProps {
+    phase?: number;
+    offset?: number;
+    frequency?: number;
+    amplitude?: number;
+}
+
+interface LineProps {
+    spring: number;
+}
+
+interface CanvasConfig {
+    debug: boolean;
+    friction: number;
+    trails: number;
+    size: number;
+    dampening: number;
+    tension: number;
+}
+
+interface NodeObject {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+}
+
+interface Position {
+    x: number;
+    y: number;
+}
+
+interface ExtendedCanvasRenderingContext2D extends CanvasRenderingContext2D {
+    running: boolean;
+    frame: number;
+}
+
+class SineWave {
+    private phase: number;
+    private offset: number;
+    private frequency: number;
+    private amplitude: number;
+    private value: number = 0;
+
+    constructor(props: SineWaveProps = {}) {
+        this.phase = props.phase || 0;
+        this.offset = props.offset || 0;
+        this.frequency = props.frequency || 0.001;
+        this.amplitude = props.amplitude || 1;
+    }
+
+    update(): number {
+        this.phase += this.frequency;
+        this.value = this.offset + Math.sin(this.phase) * this.amplitude;
+        return this.value;
+    }
+
+    getValue(): number {
+        return this.value;
+    }
+}
+
+class Node implements NodeObject {
+    x: number = 0;
+    y: number = 0;
+    vx: number = 0;
+    vy: number = 0;
+}
+
+class Line {
+    spring: number;
+    friction: number;
+    nodes: Node[];
+
+    constructor(props: LineProps, position: Position, config: CanvasConfig) {
+        this.spring = props.spring + 0.1 * Math.random() - 0.02;
+        this.friction = config.friction + 0.01 * Math.random() - 0.002;
+        this.nodes = [];
+
+        for (let i = 0; i < config.size; i++) {
+            const node = new Node();
+            node.x = position.x;
+            node.y = position.y;
+            this.nodes.push(node);
+        }
+    }
+
+    update(position: Position, config: CanvasConfig): void {
+        let springFactor = this.spring;
+        let node = this.nodes[0];
+
+        node.vx += (position.x - node.x) * springFactor;
+        node.vy += (position.y - node.y) * springFactor;
+
+        for (let i = 0, len = this.nodes.length; i < len; i++) {
+            node = this.nodes[i];
+
+            if (i > 0) {
+                const prevNode = this.nodes[i - 1];
+                node.vx += (prevNode.x - node.x) * springFactor;
+                node.vy += (prevNode.y - node.y) * springFactor;
+                node.vx += prevNode.vx * config.dampening;
+                node.vy += prevNode.vy * config.dampening;
+            }
+
+            node.vx *= this.friction;
+            node.vy *= this.friction;
+            node.x += node.vx;
+            node.y += node.vy;
+
+            springFactor *= config.tension;
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D): void {
+        let x = this.nodes[0].x;
+        let y = this.nodes[0].y;
+
+        context.beginPath();
+        context.moveTo(x, y);
+
+        for (let i = 1, len = this.nodes.length - 2; i < len; i++) {
+            const currentNode = this.nodes[i];
+            const nextNode = this.nodes[i + 1];
+
+            x = 0.5 * (currentNode.x + nextNode.x);
+            y = 0.5 * (currentNode.y + nextNode.y);
+
+            context.quadraticCurveTo(currentNode.x, currentNode.y, x, y);
+        }
+
+        const secondLastNode = this.nodes[this.nodes.length - 2];
+        const lastNode = this.nodes[this.nodes.length - 1];
+
+        context.quadraticCurveTo(secondLastNode.x, secondLastNode.y, lastNode.x, lastNode.y);
+        context.stroke();
+        context.closePath();
+    }
+}
+
 // Canvas cursor hook
 const useCanvasCursor = (): void => {
-    interface SineWaveProps {
-        phase?: number;
-        offset?: number;
-        frequency?: number;
-        amplitude?: number;
-    }
-
-    interface LineProps {
-        spring: number;
-    }
-
-    interface CanvasConfig {
-        debug: boolean;
-        friction: number;
-        trails: number;
-        size: number;
-        dampening: number;
-        tension: number;
-    }
-
-    interface NodeObject {
-        x: number;
-        y: number;
-        vx: number;
-        vy: number;
-    }
-
-    interface Position {
-        x: number;
-        y: number;
-    }
-
-    interface CanvasContext extends CanvasRenderingContext2D {
-        running: boolean;
-        frame: number;
-    }
-
-    class SineWave {
-        phase: number;
-        offset: number;
-        frequency: number;
-        amplitude: number;
-        private value: number = 0;
-
-        constructor(props: SineWaveProps = {}) {
-            this.phase = props.phase || 0;
-            this.offset = props.offset || 0;
-            this.frequency = props.frequency || 0.001;
-            this.amplitude = props.amplitude || 1;
-        }
-
-        update(): number {
-            this.phase += this.frequency;
-            this.value = this.offset + Math.sin(this.phase) * this.amplitude;
-            return this.value;
-        }
-
-        getValue(): number {
-            return this.value;
-        }
-    }
-
-    class Node implements NodeObject {
-        x: number = 0;
-        y: number = 0;
-        vx: number = 0;
-        vy: number = 0;
-    }
-
-    class Line {
-        spring: number;
-        friction: number;
-        nodes: Node[];
-
-        constructor(props: LineProps, position: Position, config: CanvasConfig) {
-            this.spring = props.spring + 0.1 * Math.random() - 0.02;
-            this.friction = config.friction + 0.01 * Math.random() - 0.002;
-            this.nodes = [];
-
-            for (let i = 0; i < config.size; i++) {
-                const node = new Node();
-                node.x = position.x;
-                node.y = position.y;
-                this.nodes.push(node);
-            }
-        }
-
-        update(position: Position, config: CanvasConfig): void {
-            let springFactor = this.spring;
-            let node = this.nodes[0];
-
-            node.vx += (position.x - node.x) * springFactor;
-            node.vy += (position.y - node.y) * springFactor;
-
-            for (let i = 0, len = this.nodes.length; i < len; i++) {
-                node = this.nodes[i];
-
-                if (i > 0) {
-                    const prevNode = this.nodes[i - 1];
-                    node.vx += (prevNode.x - node.x) * springFactor;
-                    node.vy += (prevNode.y - node.y) * springFactor;
-                    node.vx += prevNode.vx * config.dampening;
-                    node.vy += prevNode.vy * config.dampening;
-                }
-
-                node.vx *= this.friction;
-                node.vy *= this.friction;
-                node.x += node.vx;
-                node.y += node.vy;
-
-                springFactor *= config.tension;
-            }
-        }
-
-        draw(context: CanvasRenderingContext2D): void {
-            let x = this.nodes[0].x;
-            let y = this.nodes[0].y;
-
-            context.beginPath();
-            context.moveTo(x, y);
-
-            for (let i = 1, len = this.nodes.length - 2; i < len; i++) {
-                const currentNode = this.nodes[i];
-                const nextNode = this.nodes[i + 1];
-
-                x = 0.5 * (currentNode.x + nextNode.x);
-                y = 0.5 * (currentNode.y + nextNode.y);
-
-                context.quadraticCurveTo(currentNode.x, currentNode.y, x, y);
-            }
-
-            const secondLastNode = this.nodes[this.nodes.length - 2];
-            const lastNode = this.nodes[this.nodes.length - 1];
-
-            context.quadraticCurveTo(secondLastNode.x, secondLastNode.y, lastNode.x, lastNode.y);
-            context.stroke();
-            context.closePath();
-        }
-    }
-
     // Use refs for values that need to persist between renders but don't trigger re-renders
-    const ctxRef = useRef<CanvasContext | null>(null);
+    const ctxRef = useRef<ExtendedCanvasRenderingContext2D | null>(null);
     const sineWaveRef = useRef<SineWave | null>(null);
     const positionRef = useRef<Position>({ x: 0, y: 0 });
     const linesRef = useRef<Line[]>([]);
 
-    const config: CanvasConfig = {
+    // Memoize config to prevent unnecessary re-renders
+    const config = useMemo<CanvasConfig>(() => ({
         debug: true,
         friction: 0.5,
         trails: 20,
         size: 50,
         dampening: 0.25,
         tension: 0.98,
-    };
+    }), []);
 
-    const initLines = useCallback(() => {
-        linesRef.current = [];
+    // Memoize the functions to avoid unnecessary recreation
+    const initLines = useCallback((lines: Line[], position: Position, config: CanvasConfig) => {
+        lines.length = 0; // Clear the existing lines
         for (let i = 0; i < config.trails; i++) {
-            linesRef.current.push(new Line(
+            lines.push(new Line(
                 { spring: 0.4 + (i / config.trails) * 0.025 },
-                positionRef.current,
+                position,
                 config
             ));
         }
-    }, [config]);
+    }, []); // Remove config from dependency array
 
     const updatePosition = useCallback((event: MouseEvent | TouchEvent): void => {
         if ('touches' in event) {
             positionRef.current.x = event.touches[0].pageX;
             positionRef.current.y = event.touches[0].pageY;
         } else {
-            positionRef.current.x = event.clientX;
-            positionRef.current.y = event.clientY;
+            positionRef.current.x = (event as MouseEvent).clientX;
+            positionRef.current.y = (event as MouseEvent).clientY;
         }
         event.preventDefault();
     }, []);
@@ -218,18 +221,6 @@ const useCanvasCursor = (): void => {
             positionRef.current.y = event.touches[0].pageY;
         }
     }, []);
-
-    const handleMouseMove = useCallback((e: MouseEvent | TouchEvent): void => {
-        document.removeEventListener('mousemove', handleMouseMove as EventListener);
-        document.removeEventListener('touchstart', handleMouseMove as unknown as EventListener);
-        document.addEventListener('mousemove', updatePosition as EventListener);
-        document.addEventListener('touchmove', updatePosition as EventListener);
-        document.addEventListener('touchstart', handleTouchStart as EventListener);
-
-        updatePosition(e);
-        initLines();
-        renderFrame();
-    }, [initLines, updatePosition, handleTouchStart]);
 
     const renderFrame = useCallback(() => {
         const ctx = ctxRef.current;
@@ -257,6 +248,18 @@ const useCanvasCursor = (): void => {
         }
     }, [config]);
 
+    const handleMouseMove = useCallback((e: MouseEvent | TouchEvent): void => {
+        document.removeEventListener('mousemove', handleMouseMove as EventListener);
+        document.removeEventListener('touchstart', handleMouseMove as unknown as EventListener);
+        document.addEventListener('mousemove', updatePosition as EventListener);
+        document.addEventListener('touchmove', updatePosition as EventListener);
+        document.addEventListener('touchstart', handleTouchStart as EventListener);
+
+        updatePosition(e);
+        initLines(linesRef.current, positionRef.current, config);
+        renderFrame();
+    }, [initLines, updatePosition, handleTouchStart, renderFrame, config]);
+
     const resizeCanvas = useCallback(() => {
         const ctx = ctxRef.current;
         if (ctx && ctx.canvas) {
@@ -272,7 +275,7 @@ const useCanvasCursor = (): void => {
         const context = canvas.getContext('2d');
         if (!context) return;
 
-        ctxRef.current = context as CanvasContext;
+        ctxRef.current = context as ExtendedCanvasRenderingContext2D;
         ctxRef.current.running = true;
         ctxRef.current.frame = 1;
 
@@ -340,7 +343,6 @@ const NeonCursor: React.FC = () => {
         scale: 1,
         opacity: 1,
     });
-    // Removed unused state variables
     const trailControls = useAnimation();
     const glowControls = useAnimation();
 
@@ -385,12 +387,12 @@ const NeonCursor: React.FC = () => {
     useEffect(() => {
         window.addEventListener('mousemove', handleMouseMove as EventListener);
         window.addEventListener('mouseover', handleMouseOver as EventListener);
-        window.addEventListener('mouseout', handleMouseOut);
+        window.addEventListener('mouseout', handleMouseOut as EventListener);
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove as EventListener);
             window.removeEventListener('mouseover', handleMouseOver as EventListener);
-            window.removeEventListener('mouseout', handleMouseOut);
+            window.removeEventListener('mouseout', handleMouseOut as EventListener);
         };
     }, [handleMouseMove, handleMouseOver, handleMouseOut]);
 
