@@ -95,7 +95,7 @@ export default function TimelinePage() {
       content: (
         <div>
           <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Built and launched Aceternity UI and Aceternity UI Pro from scratch
+            Built and launched Mage UI and Mage UI Pro from scratch
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Image

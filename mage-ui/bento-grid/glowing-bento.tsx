@@ -203,9 +203,9 @@ const GridItem = ({ area, icon, title, description }: GridItemProps) => {
 const gridItems: GridItemProps[] = [
   { area: "md:[grid-area:1/1/2/7]", icon: <Box />, title: "Do things the right way", description: "Running out of copy so I'll write anything." },
   { area: "md:[grid-area:1/7/2/13]", icon: <Settings />, title: "The best AI code editor ever.", description: "Yes, it's true. I'm not even kidding." },
-  { area: "md:[grid-area:2/1/3/7]", icon: <Lock />, title: "You should buy Aceternity UI Pro", description: "It's the best money you'll ever spend." },
+  { area: "md:[grid-area:2/1/3/7]", icon: <Lock />, title: "You should buy Mage UI Pro", description: "It's the best money you'll ever spend." },
   { area: "md:[grid-area:2/7/3/13]", icon: <Sparkles />, title: "This card is also built by Cursor", description: "I'm not even kidding. Ask my mom." },
-  { area: "md:[grid-area:3/1/4/13]", icon: <Search />, title: "Coming soon on Aceternity UI", description: "I'm writing the code as I record this." }
+  { area: "md:[grid-area:3/1/4/13]", icon: <Search />, title: "Coming soon on Mage UI", description: "I'm writing the code as I record this." }
 ];
 
 export { GlowingEffect };
