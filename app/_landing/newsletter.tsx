@@ -23,14 +23,14 @@ function NewsletterInput(): React.JSX.Element {
         <Input
           type="email"
           placeholder="Enter your email"
-          className="flex-1 border-gray-200 bg-gray-50 dark:border-zinc-600 dark:bg-zinc-800"
+          className="flex-1 border-gray-200 bg-gray-50 dark:border-zinc-600 dark:bg-zinc-800 h-12"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <Button
           type="submit"
           disabled={isLoading}
-          className="mt-1 w-full bg-blue-500 text-white hover:bg-blue-600 sm:w-auto"
+          className="mt-1 w-full bg-blue-500 text-white hover:bg-blue-600 sm:w-auto h-12"
         >
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isLoading ? "Please wait" : "Join now"}
