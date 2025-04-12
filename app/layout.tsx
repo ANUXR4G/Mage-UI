@@ -1,5 +1,4 @@
 import { Metadata, Viewport } from "next";
-
 import { CSPostHogProvider } from "@/app/providers";
 import { ThemeProvider } from "@/components/providers";
 import { SiteFooter } from "@/components/site-footer";
@@ -7,12 +6,10 @@ import { SiteHeader } from "@/components/site-header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-
 import "@/styles/globals.css";
 import GoogleAdsense from "@/lib/GoogleAdsense";
 
 export const metadata: Metadata = {
-
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
@@ -80,40 +77,49 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <GoogleAdsense pId="ca-pub-8579465290654846" />
-          <link rel="icon" href="/favicon.ico" sizes="any" />
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
-            crossOrigin="anonymous">
-          </script>
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
-            crossOrigin="anonymous"></script>
-        </head>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <GoogleAdsense pId="ca-pub-8579465290654846" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
         <CSPostHogProvider>
-          <body className={cn("min-h-screen bg-background font-sans antialiased")}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div vaul-drawer-wrapper="">
-                <div className="relative flex min-h-screen flex-col bg-background">
-                  <SiteHeader />
-                  <main className="flex-1">{children}</main>
-                  <SiteFooter />
-                </div>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div vaul-drawer-wrapper="">
+              <div className="relative flex min-h-screen flex-col bg-background">
+                <SiteHeader />
+                <main className="flex-1">{children}</main>
+                <SiteFooter />
               </div>
-              <TailwindIndicator />
-            </ThemeProvider>
-
-          </body>
+            </div>
+            <TailwindIndicator />
+          </ThemeProvider>
+          {/* AdSense inline ad */}
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-8579465290654846"
+            data-ad-slot="8743355838"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: "(adsbygoogle = window.adsbygoogle || []).push({});"
+            }}
+          />
         </CSPostHogProvider>
-      </html>
-    </>
+      </body>
+    </html>
   );
 }
