@@ -83,12 +83,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang="en" suppressHydrationWarning>
         <head>
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
-            crossOrigin="anonymous"
-          ></script>
-
           <GoogleAdsense pId="ca-pub-8579465290654846" />
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <script
@@ -96,6 +90,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
             crossOrigin="anonymous">
           </script>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8579465290654846"
+            crossOrigin="anonymous"></script>
         </head>
         <CSPostHogProvider>
           <body className={cn("min-h-screen bg-background font-sans antialiased")}>
