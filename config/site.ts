@@ -6,7 +6,7 @@ export const siteConfig = {
     "Hand-crafted animated components that you can copy and paste into your apps. Free & Open Source.",
   links: {
     twitter: "https://twitter.com/mage-uidesign",
-    github: "https://github.com/nodesinfinity",
+    github: "https://github.com/ANUXR4G",
   },
 };
 

@@ -17,7 +17,7 @@ type Story = StoryObj<typeof PinContainer>;
 export const Primary: Story = {
   args: {
     title: "/mageui.live",
-    href: "https://github.com/nodesinfinity",
+    href: "https://github.com/ANUXR4G",
     children: (
       <div className="flex basis-full flex-col tracking-tight text-slate-100/50 sm:basis-1/2 w-[16rem] h-[16rem] p-4">
         <h3 className="max-w-xs !pb-2 !m-0 font-bold text-base text-slate-100">
