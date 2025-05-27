@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,19 +28,30 @@ export function SiteHeader() {
   useEffect(() => {
     async function fetchStars() {
       try {
-        const res = await fetch("https://api.github.com/repos/ANUXR4G/Mage-UI");
+        const res = await fetch("https://api.github.com/repos/ANUXR4G/Mage-UI", {
+          headers: {
+            // Optional: add a GitHub token to avoid rate limits
+            // Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
+          },
+        });
+
         if (!res.ok) throw new Error("Failed to fetch GitHub stars");
+
         const data = await res.json();
-        setStars(data.stargazers_count);
+        console.log("GitHub repo data:", data); // Debug
+        setStars(data.stargazers_count ?? null);
       } catch (error) {
         console.error("Error fetching GitHub stars:", error);
+        setStars(null);
       }
     }
-    fetchStars();
+
+    if (typeof window !== "undefined") {
+      fetchStars();
+    }
   }, []);
 
   const styles = {
-    // Once the animation ends, use CSS to properly position the header
     top: "calc(100dvh - 96px)",
     width: "fit-content",
     height: "fit-content",
@@ -73,10 +85,11 @@ export function SiteHeader() {
               </Link>
             ))}
           </div>
+
           <AnimatedBorderTrail
             trailColor={resolvedTheme === "dark" ? "white" : "black"}
             className="rounded-full bg-foreground/30 p-0.5 transition-all duration-100 hover:scale-105 hover:opacity-95 active:scale-90 active:opacity-100"
-            contentClassName="rounded-full bg-transparent "
+            contentClassName="rounded-full bg-transparent"
           >
             <Link
               href="https://github.com/ANUXR4G/Mage-UI"
@@ -85,7 +98,7 @@ export function SiteHeader() {
             >
               Star us <span className="hidden sm:inline ml-1">on GitHub</span>
               {stars !== null && (
-                <span className="ml-2 rounded-full bg-gray-300 px-2 py-0.5 text-[10px] font-semibold dark:bg-gray-700">
+                <span className="ml-2 rounded-full bg-gray-300 px-2 py-0.5 text-[12px] font-semibold dark:bg-gray-600">
                   ★ {stars.toLocaleString()}
                 </span>
               )}
@@ -93,6 +106,7 @@ export function SiteHeader() {
           </AnimatedBorderTrail>
         </div>
       </div>
+
       <header
         style={styles}
         className={cn(
