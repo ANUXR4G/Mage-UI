@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -21,6 +21,22 @@ export function SiteHeader() {
   const headerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isIndexPage = pathname === "/";
+
+  const [stars, setStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchStars() {
+      try {
+        const res = await fetch("https://api.github.com/repos/ANUXR4G/Mage-UI");
+        if (!res.ok) throw new Error("Failed to fetch GitHub stars");
+        const data = await res.json();
+        setStars(data.stargazers_count);
+      } catch (error) {
+        console.error("Error fetching GitHub stars:", error);
+      }
+    }
+    fetchStars();
+  }, []);
 
   const styles = {
     // Once the animation ends, use CSS to properly position the header
@@ -63,11 +79,16 @@ export function SiteHeader() {
             contentClassName="rounded-full bg-transparent "
           >
             <Link
-              href={siteConfig.links.github}
+              href="https://github.com/ANUXR4G/Mage-UI"
               target="_blank"
-              className="inline-block rounded-full bg-opacity-75 bg-gradient-to-br from-gray-100 from-5% via-zinc-50 via-60% to-slate-200 pr-4 pl-[0.8rem] md:pr-0 md:pl-0 lg:px-4 py-2 text-xs font-medium text-foreground dark:from-gray-900 dark:via-zinc-700 dark:to-slate-700 text-nowrap"
+              className="inline-flex items-center rounded-full bg-opacity-75 bg-gradient-to-br from-gray-100 from-5% via-zinc-50 via-60% to-slate-200 pr-4 pl-[0.8rem] md:pr-0 md:pl-0 lg:px-4 py-2 text-xs font-medium text-foreground dark:from-gray-900 dark:via-zinc-700 dark:to-slate-700 text-nowrap"
             >
-              Star us <span className="hidden sm:inline">on GitHub</span>
+              Star us <span className="hidden sm:inline ml-1">on GitHub</span>
+              {stars !== null && (
+                <span className="ml-2 rounded-full bg-gray-300 px-2 py-0.5 text-[10px] font-semibold dark:bg-gray-700">
+                  ★ {stars.toLocaleString()}
+                </span>
+              )}
             </Link>
           </AnimatedBorderTrail>
         </div>
