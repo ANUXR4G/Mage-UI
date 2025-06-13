@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Mage-UI",
+  name: "Mage UI",
   url: "https://mageui.live",
   ogImage: "https://mageui.live/og.png",
   description:
