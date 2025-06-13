@@ -160,7 +160,7 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({
 // Main Page Component
 export default function PixelTransitionDemo() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
+    <div className="h-screen w-screen flex items-start justify-center">
       <PixelTransition
         firstContent={
           <img
