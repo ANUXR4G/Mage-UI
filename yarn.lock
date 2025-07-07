@@ -6086,7 +6086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/animejs@npm:^3":
+"@types/animejs@npm:^3.1.13":
   version: 3.1.13
   resolution: "@types/animejs@npm:3.1.13"
   checksum: 10c0/6c1c977417a699bf4c3eaf6fdb948ea29011543f69370f98f7c7bac42aadb3309dda23a8415738f7480eed1a355b6ee130d1405339cd031a876774fc8e6f6c47
@@ -7271,10 +7271,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"animejs@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "animejs@npm:3.2.2"
-  checksum: 10c0/f43dfcc0c743a2774e76fbfcb16a22350da7104f413d9d1b85c48128b0c078090642809deb631e21dfa0a40651111be39d9d7f694c9c1b70d8637ce8b6d63116
+"animejs@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "animejs@npm:4.0.2"
+  checksum: 10c0/1889e145d61104a7531852ab7111e9077389047de9d5761288bb7ee4bdacd36184166a718279acd3fe8d1a3c3b45ebda681a505e2162a6c18d468d5103ba8a13
   languageName: node
   linkType: hard
 
@@ -13509,7 +13509,7 @@ __metadata:
     "@tabler/icons-react": "npm:^3.31.0"
     "@tsparticles/engine": "npm:^3.5.0"
     "@tsparticles/react": "npm:^3.0.0"
-    "@types/animejs": "npm:^3"
+    "@types/animejs": "npm:^3.1.13"
     "@types/lodash.camelcase": "npm:^4"
     "@types/lodash.kebabcase": "npm:^4"
     "@types/lodash.startcase": "npm:^4"
@@ -13519,7 +13519,7 @@ __metadata:
     "@types/react-dom": "npm:^18"
     "@types/react-dropzone": "npm:^5.1.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
-    animejs: "npm:^3.2.2"
+    animejs: "npm:^4.0.2"
     chalk: "npm:^5.3.0"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
