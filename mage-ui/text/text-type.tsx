@@ -1,0 +1,358 @@
+'use client';
+
+import { ElementType, useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { gsap } from 'gsap';
+
+// ============= COMPONENT DEFINITION =============
+export interface TextTypeProps {
+  className?: string;
+  showCursor?: boolean;
+  hideCursorWhileTyping?: boolean;
+  cursorCharacter?: string | React.ReactNode;
+  cursorBlinkDuration?: number;
+  cursorClassName?: string;
+  text: string | string[];
+  as?: ElementType;
+  typingSpeed?: number;
+  initialDelay?: number;
+  pauseDuration?: number;
+  deletingSpeed?: number;
+  loop?: boolean;
+  textColors?: string[];
+  variableSpeed?: { min: number; max: number };
+  onSentenceComplete?: (sentence: string, index: number) => void;
+  startOnVisible?: boolean;
+  reverseMode?: boolean;
+}
+
+const TextTypeComponent = ({
+  text,
+  as: Component = 'div',
+  typingSpeed = 50,
+  initialDelay = 0,
+  pauseDuration = 2000,
+  deletingSpeed = 30,
+  loop = true,
+  className = '',
+  showCursor = true,
+  hideCursorWhileTyping = false,
+  cursorCharacter = '|',
+  cursorClassName = '',
+  cursorBlinkDuration = 0.5,
+  textColors = [],
+  variableSpeed,
+  onSentenceComplete,
+  startOnVisible = false,
+  reverseMode = false,
+  ...props
+}: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(!startOnVisible);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+
+  const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
+
+  const getRandomSpeed = useCallback(() => {
+    if (!variableSpeed) return typingSpeed;
+    const { min, max } = variableSpeed;
+    return Math.random() * (max - min) + min;
+  }, [variableSpeed, typingSpeed]);
+
+  const getCurrentTextColor = () => {
+    if (textColors.length === 0) return;
+    return textColors[currentTextIndex % textColors.length];
+  };
+
+  useEffect(() => {
+    if (!startOnVisible || !containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [startOnVisible]);
+
+  useEffect(() => {
+    if (showCursor && cursorRef.current) {
+      gsap.set(cursorRef.current, { opacity: 1 });
+      gsap.to(cursorRef.current, {
+        opacity: 0,
+        duration: cursorBlinkDuration,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power2.inOut'
+      });
+    }
+  }, [showCursor, cursorBlinkDuration]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let timeout: NodeJS.Timeout;
+
+    const currentText = textArray[currentTextIndex];
+    const processedText = reverseMode ? currentText.split('').reverse().join('') : currentText;
+
+    const executeTypingAnimation = () => {
+      if (isDeleting) {
+        if (displayedText === '') {
+          setIsDeleting(false);
+          if (currentTextIndex === textArray.length - 1 && !loop) {
+            return;
+          }
+
+          if (onSentenceComplete) {
+            onSentenceComplete(textArray[currentTextIndex], currentTextIndex);
+          }
+
+          setCurrentTextIndex(prev => (prev + 1) % textArray.length);
+          setCurrentCharIndex(0);
+          timeout = setTimeout(() => {}, pauseDuration);
+        } else {
+          timeout = setTimeout(() => {
+            setDisplayedText(prev => prev.slice(0, -1));
+          }, deletingSpeed);
+        }
+      } else {
+        if (currentCharIndex < processedText.length) {
+          timeout = setTimeout(
+            () => {
+              setDisplayedText(prev => prev + processedText[currentCharIndex]);
+              setCurrentCharIndex(prev => prev + 1);
+            },
+            variableSpeed ? getRandomSpeed() : typingSpeed
+          );
+        } else if (textArray.length >= 1) {
+          if (!loop && currentTextIndex === textArray.length - 1) return;
+          timeout = setTimeout(() => {
+            setIsDeleting(true);
+          }, pauseDuration);
+        }
+      }
+    };
+
+    if (currentCharIndex === 0 && !isDeleting && displayedText === '') {
+      timeout = setTimeout(executeTypingAnimation, initialDelay);
+    } else {
+      executeTypingAnimation();
+    }
+
+    return () => clearTimeout(timeout);
+  }, [
+    currentCharIndex,
+    displayedText,
+    isDeleting,
+    typingSpeed,
+    deletingSpeed,
+    pauseDuration,
+    textArray,
+    currentTextIndex,
+    loop,
+    initialDelay,
+    isVisible,
+    reverseMode,
+    variableSpeed,
+    onSentenceComplete,
+    getRandomSpeed
+  ]);
+
+  const shouldHideCursor =
+    hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
+
+  return createElement(
+    Component,
+    {
+      ref: containerRef,
+      className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
+      ...props
+    },
+    <span className="inline" style={{ color: getCurrentTextColor() || 'inherit' }}>
+      {displayedText}
+    </span>,
+    showCursor && (
+      <span
+        ref={cursorRef}
+        className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? 'hidden' : ''} ${cursorClassName}`}
+      >
+        {cursorCharacter}
+      </span>
+    )
+  );
+};
+
+export const TextType = TextTypeComponent;
+
+// ============= STORYBOOK META =============
+const meta: Meta<typeof TextType> = {
+  title: 'Text/TextType',
+  component: TextType,
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    text: {
+      control: 'object',
+      description: 'Text string or array of strings to type'
+    },
+    typingSpeed: {
+      control: { type: 'number', min: 10, max: 200, step: 5 },
+      description: 'Speed of typing in milliseconds'
+    },
+    pauseDuration: {
+      control: { type: 'number', min: 500, max: 5000, step: 100 },
+      description: 'Pause duration between sentences'
+    },
+    deletingSpeed: {
+      control: { type: 'number', min: 10, max: 200, step: 5 },
+      description: 'Speed of deleting text'
+    },
+    showCursor: {
+      control: 'boolean',
+      description: 'Show or hide cursor'
+    },
+    cursorCharacter: {
+      control: 'text',
+      description: 'Character to use as cursor'
+    },
+    loop: {
+      control: 'boolean',
+      description: 'Loop through text array'
+    },
+    as: {
+      control: 'select',
+      options: ['div', 'p', 'h1', 'h2', 'h3', 'span'],
+      description: 'HTML element to render'
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ============= STORIES =============
+export const Default: Story = {
+  args: {
+    text: ['Text typing effect', 'for your websites', 'Happy coding!'],
+    typingSpeed: 75,
+    pauseDuration: 1500,
+    showCursor: true,
+    cursorCharacter: '|',
+    className: 'text-2xl font-semibold text-white',
+    loop: true,
+  },
+};
+
+export const SingleText: Story = {
+  args: {
+    text: 'This is a single typing text',
+    typingSpeed: 60,
+    showCursor: true,
+    cursorCharacter: '_',
+    className: 'text-xl text-white font-medium',
+    loop: false,
+  },
+};
+
+export const FastTyping: Story = {
+  args: {
+    text: ['Lightning fast typing!', 'Super speedy text', 'Blazing performance'],
+    typingSpeed: 30,
+    deletingSpeed: 20,
+    pauseDuration: 1000,
+    showCursor: true,
+    className: 'text-3xl font-bold text-white',
+  },
+};
+
+export const SlowTyping: Story = {
+  args: {
+    text: ['Slow and steady...', 'Takes its time...', 'Patient typing...'],
+    typingSpeed: 150,
+    deletingSpeed: 100,
+    pauseDuration: 2500,
+    showCursor: true,
+    cursorCharacter: '█',
+    className: 'text-2xl text-white',
+  },
+};
+
+export const ColorfulText: Story = {
+  args: {
+    text: ['Red text here', 'Green text now', 'Blue text coming'],
+    typingSpeed: 70,
+    pauseDuration: 1500,
+    textColors: ['#ef4444', '#22c55e', '#3b82f6'],
+    showCursor: true,
+    className: 'text-3xl font-bold',
+  },
+};
+
+export const HideCursorWhileTyping: Story = {
+  args: {
+    text: ['Cursor hides while typing', 'Watch it disappear', 'Then reappear'],
+    typingSpeed: 80,
+    pauseDuration: 1500,
+    showCursor: true,
+    hideCursorWhileTyping: true,
+    cursorCharacter: '|',
+    className: 'text-2xl text-white',
+  },
+};
+
+export const VariableSpeed: Story = {
+  args: {
+    text: ['Variable typing speed', 'Each character different', 'Natural feeling'],
+    variableSpeed: { min: 40, max: 120 },
+    pauseDuration: 2000,
+    showCursor: true,
+    className: 'text-2xl font-medium text-white',
+  },
+};
+
+export const NoLoop: Story = {
+  args: {
+    text: ['This text only plays once', 'No looping here', 'Final message'],
+    typingSpeed: 70,
+    pauseDuration: 1500,
+    loop: false,
+    showCursor: true,
+    className: 'text-xl text-white',
+  },
+};
+
+export const CustomCursor: Story = {
+  args: {
+    text: ['Custom cursor styles', 'Different characters', 'Your choice!'],
+    typingSpeed: 75,
+    pauseDuration: 1500,
+    showCursor: true,
+    cursorCharacter: '▌',
+    cursorClassName: 'text-blue-500 font-bold',
+    className: 'text-2xl text-white',
+  },
+};
+
+export const ReverseMode: Story = {
+  args: {
+    text: ['!sdrawkcab sepyt sihT', 'edom esreveR', '!looc yrev s\'tI'],
+    typingSpeed: 80,
+    pauseDuration: 1800,
+    reverseMode: true,
+    showCursor: true,
+    className: 'text-2xl font-semibold text-white',
+  },
+};

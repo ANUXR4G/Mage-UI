@@ -1,4 +1,3 @@
-// mage-ui/text/PopupText.stories.tsx
 import React, { useRef, useEffect, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { gsap } from 'gsap';
