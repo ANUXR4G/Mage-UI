@@ -203,6 +203,10 @@ const config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-40px)" },
         },
+        shine: {
+          "0%": { backgroundPosition: "100%" },
+          "100%": { backgroundPosition: "-100%" },
+        },
       },
       animation: {
         fill: "fill 1s forwards",
@@ -220,6 +224,7 @@ const config = {
         trail: "trail var(--duration) linear infinite",
         led: "led 100ms ease-in-out",
         float: "float 3s ease-in-out infinite",
+        shine: "shine 5s linear infinite",
       },
       transitionTimingFunction: {
         slow: "cubic-bezier(.405, 0, .025, 1)",
