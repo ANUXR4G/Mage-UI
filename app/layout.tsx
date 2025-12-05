@@ -1,4 +1,6 @@
-import { Metadata, Viewport } from "next";
+// app/layout.tsx
+import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import { CSPostHogProvider } from "@/app/providers";
 import { ThemeProvider } from "@/components/providers";
 import { SiteFooter } from "@/components/site-footer";
@@ -8,6 +10,12 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import GoogleAdsense from "@/lib/GoogleAdsense";
+
+// load ad slot client-side only to prevent hydration mismatch
+const AdsenseSlot = dynamic(
+  () => import("@/components/AdsenseSlot").then((m) => m.AdsenseSlot),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: {
@@ -79,6 +87,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* AdSense global script (fine to keep in head) */}
         <GoogleAdsense pId="ca-pub-8579465290654846" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
@@ -104,20 +113,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
             <TailwindIndicator />
           </ThemeProvider>
-          {/* AdSense inline ad */}
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-8579465290654846"
-            data-ad-slot="8743355838"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: "(adsbygoogle = window.adsbygoogle || []).push({});"
-            }}
-          />
+
+          {/* Client-only AdSense unit to avoid hydration mismatch */}
+          <AdsenseSlot />
         </CSPostHogProvider>
       </body>
     </html>
