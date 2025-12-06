@@ -454,7 +454,7 @@ export const Default: Story = {
     triggerOnce: true,
     triggerOnHover: true,
     respectReducedMotion: true,
-    className: 'text-white',
+    className: ' text-black dark:text-white ',
   },
 };
 
